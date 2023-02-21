@@ -1,5 +1,6 @@
+import { apiUrl } from "./constants";
 // Initializing all elements constants
-const temperateField = document.querySelector(".weather1");
+const temperatureField = document.querySelector(".weather1");
 const cityField = document.querySelector(".weather2 p");
 const dateField = document.querySelector(".weather2 span");
 const emojiField = document.querySelector(".weather3 img");
@@ -10,9 +11,7 @@ const form = document.querySelector("form");
 // Function to fetch Data from Weather API
 const fetchData = async (target) => {
   try {
-    const url = `https://api.weatherapi.com/v1/current.json?key=5b27a6ef3547402582e62007222306&q=${target}`;
-
-    const response = await fetch(url);
+    const response = await fetch(apiUrl(target));
     const data = await response.json();
 
     // Destructuring
@@ -32,12 +31,15 @@ const fetchData = async (target) => {
 };
 
 // Function to update Dom
-function updateDom(temperate, city, time, emoji, text) {
-  const exactTime = time.split(" ")[1];
-  const exactDate = time.split(" ")[0];
+function updateDom(temperature, city, time, emoji, text) {
+
+  // Destructuring time and date
+  const { [1]: {exactTime}, [0]: {exactDate}, } = time.split(" ");
+  
+  //getting day name
   const exactDay = getDayFullName(new Date(exactDate).getDay());
 
-  temperateField.innerText = `${temperate}°`;
+  temperatureField.innerText = `${temperature}°`;
   cityField.innerText = city;
   dateField.innerText = `${exactTime} - ${exactDay}   ${exactDate}`;
   emojiField.src = emoji;
@@ -50,13 +52,10 @@ fetchData(target);
 
 // Adding event listen to the form
 form.addEventListener("submit", search);
-
 // Function to search the location
 function search(e) {
   e.preventDefault();
-
   target = searchField.value;
-
   fetchData(target);
 }
 
