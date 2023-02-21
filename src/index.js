@@ -36,7 +36,7 @@ function updateDom(temperature, city, time, emoji, text) {
   const [exactDate, exactTime] = time.split(" ");
 
   //getting day name
-  const exactDay = getDayFullName(new Date(exactDate).getDay());
+  const exactDay = new Date(exactDate).toLocaleString('en-IN', {weekday:'long'});
   
   temperatureField.innerText = `${temperature}°`;
   cityField.innerText = city;
@@ -58,10 +58,4 @@ function search(e) {
   fetchData(target);
 }
 
-// Function to get the name of day
-function getDayFullName(num) {
-  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  if (num > days.length - 1) num = days.length - 1;
-  return days[num];
-}
 
