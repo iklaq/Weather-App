@@ -32,10 +32,12 @@ const fetchData = async (target) => {
 
 // Function to update Dom
 function updateDom(temperature, city, time, emoji, text) {
-
   // Destructuring time and date
-  const { [1]: {exactTime}, [0]: {exactDate}, } = time.split(" ");
-  
+  const {
+    [1]: { exactTime },
+    [0]: { exactDate },
+  } = time.split(" ");
+
   //getting day name
   const exactDay = getDayFullName(new Date(exactDate).getDay());
 
