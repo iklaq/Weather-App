@@ -33,14 +33,11 @@ const fetchData = async (target) => {
 // Function to update Dom
 function updateDom(temperature, city, time, emoji, text) {
   // Destructuring time and date
-  const {
-    [1]: { exactTime },
-    [0]: { exactDate },
-  } = time.split(" ");
+  const [exactDate, exactTime] = time.split(" ");
 
   //getting day name
   const exactDay = getDayFullName(new Date(exactDate).getDay());
-
+  
   temperatureField.innerText = `${temperature}°`;
   cityField.innerText = city;
   dateField.innerText = `${exactTime} - ${exactDay}   ${exactDate}`;
@@ -63,29 +60,8 @@ function search(e) {
 
 // Function to get the name of day
 function getDayFullName(num) {
-  switch (num) {
-    case 0:
-      return "Sunday";
+  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  if (num > days.length - 1) num = days.length - 1;
+  return days[num];
 
-    case 1:
-      return "Monday";
-
-    case 2:
-      return "Tuesday";
-
-    case 3:
-      return "Wednesday";
-
-    case 4:
-      return "Thursday";
-
-    case 5:
-      return "Friday";
-
-    case 6:
-      return "Saturdat";
-
-    default:
-      return "Don't Know";
-  }
 }
