@@ -63,5 +63,5 @@ function getDayFullName(num) {
   const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   if (num > days.length - 1) num = days.length - 1;
   return days[num];
-
 }
+
