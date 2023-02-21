@@ -57,5 +57,3 @@ function search(e) {
   target = searchField.value;
   fetchData(target);
 }
-
-
